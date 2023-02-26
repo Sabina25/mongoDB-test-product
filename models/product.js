@@ -20,6 +20,20 @@ class Product {
         console.log("ERR", err);
       });
   }
+
+  static fetchAll() {
+    let db = getDB();
+    return db
+      .collection("products")
+      .find()
+      .toArray()
+      .then((products) => {
+        return products;
+      })
+      .catch((err) => {
+        console.log("ERR", err);
+      });
+  }
 }
 
 module.exports = Product;
