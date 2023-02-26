@@ -1,3 +1,4 @@
+const mongoDB = require("mongodb");
 const getDB = require("../util/database").getBD;
 
 class Product {
@@ -33,6 +34,18 @@ class Product {
       .catch((err) => {
         console.log("ERR", err);
       });
+  }
+
+  static findById(prodId) {
+    let db = getDB();
+    return db
+      .collection("products")
+      .find({ _id: new mongoDB.ObjectId(prodId) })
+      .next()
+      .then((product) => {
+        return product;
+      })
+      .catch((err) => console.log(err));
   }
 }
 
