@@ -1,4 +1,4 @@
-const mongoDB = require("mongodb");
+const mongodb = require("mongodb");
 const getDB = require("../util/database").getBD;
 
 class Product {
@@ -16,7 +16,7 @@ class Product {
     if (this._id) {
       dbOp = db
         .collection("products")
-        .updateOne({ _id: new mongoDB.ObjectId(this._id) }, { $set: this });
+        .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
     } else {
       dbOp = db.collection("products").insertOne(this);
     }
@@ -47,12 +47,25 @@ class Product {
     let db = getDB();
     return db
       .collection("products")
-      .find({ _id: new mongoDB.ObjectId(prodId) })
+      .find({ _id: new mongodb.ObjectId(prodId) })
       .next()
       .then((product) => {
         return product;
       })
       .catch((err) => console.log(err));
+  }
+
+  static deleteById(prodId) {
+    const db = getDB();
+    return db
+      .collection("products")
+      .deleteOne({ _id: new mongodb.ObjectId(prodId) })
+      .then((result) => {
+        console.log("Deleted");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 
