@@ -17,13 +17,6 @@ $ cd mongoDB-test-product
 $ npm install
 ````
 
-## Building
-
-To build the project, run:
-````
-npm run build
-````
-
 ## Introduction
 
 
